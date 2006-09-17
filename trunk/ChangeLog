@@ -1,0 +1,17 @@
+       _______  .__                  _________.__                         
+       \      \ |__|______ ___.__.  /   _____/|  |__ _____ _____________  
+       /   |   \|  \_  __ <   |  |  \_____  \ |  |  \\__  \\_  __ \____ \ 
+      /    |    \  ||  | \/\___  |  /        \|   Y  \/ __ \|  | \/  |_> >
+      \____|__  /__||__|   / ____| /_______  /|___|  (____  /__|  |   __/ 
+              \/           \/ ChangeLog    \/      \/     \/      |__|    
+
+ * 11 Sep 2006 - Matteo Bertozzi
+	- Added StatusChanged Event to P2PManager
+
+ * 08 Sep 2006 - Matteo Bertozzi
+	- Fixed P2PManager Disconnection
+
+ * 05 Sep 2006 - Matteo Bertozzi
+	- Fixed P2PManager, Now uses Thread Safe Hashtable & ArrayList
+	- Dropped P2PManager.GetMyIP()
+	- Removed ManualResetEvent From PeerSocket 
