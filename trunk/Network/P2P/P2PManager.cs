@@ -242,6 +242,9 @@ namespace Niry.Network {
 		}
 
 		public static void RemovePeer (object user) {
+			if (user == null) return;
+			if (p2pManager.knownPeers == null) return;
+
 			lock (p2pManager.knownPeers) {
 				PeerSocket peer = (PeerSocket) p2pManager.knownPeers[user];
 				if (peer != null) {
@@ -253,6 +256,9 @@ namespace Niry.Network {
 		}
 
 		public static void RemovePeer (PeerSocket peer) {
+			if (peer == null) return;
+			if (p2pManager.unknownPeers == null) return;
+
 			lock (p2pManager.unknownPeers) {				
 				peer.Disconnect();						// Disconnect Peer
 				p2pManager.DelDefaultEventHandler(ref peer);
