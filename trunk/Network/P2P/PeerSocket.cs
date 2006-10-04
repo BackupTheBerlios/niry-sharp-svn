@@ -229,7 +229,6 @@ namespace Niry.Network {
 				}
 
 				if (byteSend > 0) {
-					// Response is Base64
 					response.Append(Encoding.UTF8.GetString(state.Buffer, 0, byteSend));
 					
 					// Raise Received Event

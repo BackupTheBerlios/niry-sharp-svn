@@ -25,7 +25,7 @@ using System;
 namespace Niry {
 	public class Info {
 		public const string Name = "Niry Sharp";
-		public const string Version = "0.999";
-		public const string Compiler = "Mono C# compiler version 1.1.17.1";
+		public const string Version = "1.0.0";
+		public const string Compiler = "Mono C# compiler version 1.1.13.6";
 	}
 }

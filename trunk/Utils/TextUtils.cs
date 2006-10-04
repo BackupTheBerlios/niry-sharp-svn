@@ -20,7 +20,9 @@
  */
  
 using System;
+using System.IO;
 using System.Text;
+using System.IO.Compression;
  
 namespace Niry.Utils {
 	public static class TextUtils {
@@ -47,6 +49,33 @@ namespace Niry.Utils {
 				return(new String(decodedChar));
 			} catch {}
 			return(null);
+		}
+
+		public static byte[] GZipCompress (string data) {
+			return(GZipCompress(Encoding.UTF8.GetBytes(data)));
+		}
+
+		public static byte[] GZipCompress (byte[] data) {
+			MemoryStream memStream = new MemoryStream();
+			GZipStream stream = new GZipStream(memStream, CompressionMode.Compress);
+			stream.Write(data, 0, data.Length);
+			stream.Close();
+			memStream.Close();
+			byte[] buffer = memStream.ToArray();
+			return(buffer);
+		}
+
+		public static byte[] GZipDecompress (byte[] data) {
+			return(GZipDecompress(data, 0, data.Length));
+		}
+
+		public static byte[] GZipDecompress (byte[] data, int index, int count) {
+			MemoryStream memStream = new MemoryStream(data, index, count);
+			GZipStream stream = new GZipStream(memStream, CompressionMode.Decompress);
+			byte[] buffer = FileUtils.ReadStreamFully(stream);
+			stream.Close();
+			memStream.Close();
+			return(buffer);
 		}
  	}
  }

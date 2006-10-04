@@ -5,6 +5,9 @@
       \____|__  /__||__|   / ____| /_______  /|___|  (____  /__|  |   __/ 
               \/           \/ ChangeLog    \/      \/     \/      |__|    
 
+ * 04 Oct 2006 - Matteo Bertozzi
+	- Fixed Shaped Window
+
  * 11 Sep 2006 - Matteo Bertozzi
 	- Added StatusChanged Event to P2PManager
 

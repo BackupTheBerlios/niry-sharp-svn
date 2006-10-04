@@ -61,6 +61,11 @@ namespace Niry.GUI.Gtk2 {
 			this.Events = Gdk.EventMask.AllEventsMask;
 			this.ShapeCombineMask(maskBitmapWindow, 0, 0);
 
+			// Set Back Pixmap
+			GdkWindow.SetBackPixmap(this.maskPixmapWindow, false);
+			GdkWindow.Clear();
+			this.Realize();
+
 			// Window Expose Event
 			this.ExposeEvent += new ExposeEventHandler(OnWindowExpose);
 		}
@@ -71,7 +76,6 @@ namespace Niry.GUI.Gtk2 {
 		private void OnWindowExpose (object sender, ExposeEventArgs args) {
 			Gdk.Window gdkWindow = ((Gtk.Window) sender).GdkWindow;
 			gdkWindow.SetBackPixmap(this.maskPixmapWindow, false);
-			gdkWindow.Clear();
 			args.RetVal = false;
 		}
 	}

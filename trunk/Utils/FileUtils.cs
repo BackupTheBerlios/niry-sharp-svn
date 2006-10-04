@@ -38,6 +38,10 @@ namespace Niry.Utils {
 			return(data);
 		}
 
+		public static byte[] ReadStreamFully (Stream stream) {
+			return(ReadStreamFully(stream, 32768));
+		}
+
 		public static byte[] ReadStreamFully (Stream stream, int length) {
 			if (length < 1) length = 32768;
 
