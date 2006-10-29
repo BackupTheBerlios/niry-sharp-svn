@@ -88,7 +88,7 @@ namespace Niry.GUI.Gtk2 {
 			// Initialize Window Options
 			Title = title;
 			KeepAbove = true;
-			Decorated = true;
+			Decorated = false;
 			AllowGrow = false;
 			Resizable = false;
 			AppPaintable = true;
