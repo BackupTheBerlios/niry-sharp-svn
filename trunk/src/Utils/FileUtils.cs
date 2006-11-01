@@ -85,6 +85,12 @@ namespace Niry.Utils {
 			return(byteSize.ToString() + "byte");
 		}
 
+		/// Get File Extension
+		public static string GetExtension (string path) {
+			FileInfo fileInfo = new FileInfo(path);
+			return(fileInfo.Extension.Remove(0, 1));
+		}
+
 		/// Copy Files & Directory
 		public static void CopyAll (string src, string dest) {
 			if (IsDirectory(src) == true) {
