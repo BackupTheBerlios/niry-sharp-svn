@@ -91,6 +91,21 @@ namespace Niry.GUI.Gtk2 {
 			return(item);
 		}
 
+		public CheckMenuItem AddCheckItem (string label, EventHandler handler) {
+			CheckMenuItem item = new CheckMenuItem(label);
+			item.Activated += handler;
+			Append(item);
+			return(item);
+		}
+
+		public CheckMenuItem AddCheckItem (string label, bool active, EventHandler handler) {
+			CheckMenuItem item = new CheckMenuItem(label);
+			item.Active = active;
+			item.Activated += handler;
+			Append(item);
+			return(item);
+		}
+
 		public SeparatorMenuItem AddSeparator() {
 			SeparatorMenuItem item = new SeparatorMenuItem();
 			Append(item);
