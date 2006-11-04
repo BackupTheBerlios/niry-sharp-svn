@@ -28,10 +28,36 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Diagnostics;
 
 namespace Niry.Utils {
 	/// Url Utils
-	public static class UrlUtils {
+	public static class UrlUtils { 
+		public static bool OpenLink (string address) {
+			try {
+				if (Environment.OSVersion.Platform != PlatformID.Unix) {
+					// Use Microsoft's way of opening sites
+					Process.Start(address);
+				} else {
+					// We're on Unix, try gnome-open (used by GNOME), then open
+					// (used my MacOS), then Firefox or Konqueror browsers (our last
+					// hope).
+					string cmdline = String.Format("gnome-open {0} || open {0} || " +
+									 "firefox {0} || mozilla-firefox {0} || " +
+									 "konqueror {0} || opera {0}", address);
+					Process proc = Process.Start (cmdline);
+ 	
+					// Sleep some time to wait for the shell to return in case of error
+					System.Threading.Thread.Sleep(250);
+	
+					// If the exit code is zero or the process is still running then
+					// appearently we have been successful.
+					return (!proc.HasExited || proc.ExitCode == 0);
+				}
+			} catch {}
+			return(false);
+		}
+
 		private static int GetInt (byte b) {
 			char c = (char) b;
 			if (c >= '0' && c <= '9')
