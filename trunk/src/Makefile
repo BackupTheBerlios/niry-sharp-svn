@@ -32,6 +32,8 @@ SRC_GUI_GTK2 = 	GUI/Gtk2/ExtMenuItem.cs	\
 				GUI/Gtk2/WindowUtils.cs
 SRC_GUI = $(SRC_GUI_GTK2)
 
+SRC_DATABASE =	Database/SQLite.cs
+
 SRC_NETWORK =	Network/FtpClient.cs		\
 				Network/P2P/P2PManager.cs	\
 				Network/P2P/PeerEvent.cs	\
@@ -47,7 +49,7 @@ SRC_UTILS = 	Utils/CryptoUtils.cs		\
 				Utils/TextUtils.cs			\
 				Utils/UrlUtils.cs
 
-SRC = $(SRC_BASE) $(SRC_GUI) $(SRC_NETWORK) $(SRC_UTILS)
+SRC = $(SRC_BASE) $(SRC_GUI) $(SRC_DATABASE) $(SRC_NETWORK) $(SRC_UTILS)
 
 NirySharp: NirySharpInfo $(SRC)
 	@echo
