@@ -25,6 +25,11 @@ using GLib;
 namespace Niry.GUI.Gtk2 {
 	public class LoginDialog : Gtk.Dialog {
 		// ============================================
+		// PUBLIC Events
+		// ============================================
+		public event FocusOutEventHandler UserFocusOut = null;
+
+		// ============================================
 		// PROTECTED Members
 		// ============================================
 		protected Gtk.Image imageLogo;
@@ -62,6 +67,13 @@ namespace Niry.GUI.Gtk2 {
 		}
 
 		// ============================================
+		// PRIVATE (Methods) Event Handlers
+		// ============================================
+		private void OnUsernameFocusOut (object o, FocusOutEventArgs args) {
+			if (UserFocusOut != null) UserFocusOut(o, args);
+		}
+
+		// ============================================
 		// PRIVATE Methods
 		// ============================================
 		private void InitializeLoginDialog() {
@@ -77,6 +89,8 @@ namespace Niry.GUI.Gtk2 {
 
 			// Entry Username
 			this.entryUsername = new Gtk.Entry();
+			this.entryUsername.Completion = new EntryCompletion();
+			this.entryUsername.FocusOutEvent += new FocusOutEventHandler(OnUsernameFocusOut);
 			this.VBox.PackStart(this.entryUsername, false, false, 3);
 
 			// Label Password
@@ -104,18 +118,34 @@ namespace Niry.GUI.Gtk2 {
 		}
 
 		public string Username {
-			set { this.entryUsername.Text = value; }
 			get { return(this.entryUsername.Text); }
+			set { 
+				if (value == null) {
+					this.entryUsername.Text = "";
+				} else {
+					this.entryUsername.Text = value;
+				}
+			}
 		}
 
 		public string Password {
-			set { this.entryPassword.Text = value; }
 			get { return(this.entryPassword.Text); }
+			set { 
+				if (value == null) {
+					this.entryPassword.Text = "";
+				} else {
+					this.entryPassword.Text = value;
+				}
+			}
 		}
 
 		public bool RememberPassword {
 			set { this.checkRememberPassword.Active = value; }
 			get { return(this.checkRememberPassword.Active); }
+		}
+
+		public Gtk.EntryCompletion UserNameCompletion {
+			get { return(this.entryUsername.Completion); }
 		}
 	}
 }

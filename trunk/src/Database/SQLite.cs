@@ -27,7 +27,7 @@ using System.Data.SqlClient;
 using Mono.Data.SqliteClient;
 
 namespace Niry.Database {
-	/// SQLite Utils
+	/// SQLite Utils (SQLite 3)
 	public class SQLite : SqliteConnection {
 		// ============================================
 		// PUBLIC Events
@@ -45,7 +45,7 @@ namespace Niry.Database {
 		// PUBLIC Constructors
 		// ============================================
 		/// Create New Sqlite Connection From File
-		public SQLite (string fileName) : base("URI=file:" + fileName) {
+		public SQLite (string fileName) : base("URI=file:" + fileName +",version=3") {
 		}
 
 		/// Destroy SQLite Connection
@@ -60,20 +60,15 @@ namespace Niry.Database {
 		public bool TableExists (string table) {
 			string sql = "SELECT name FROM sqlite_master WHERE type='table' AND name=@Table;";
 			SqliteCommand sqlCmd = CreateCommand();
-			Console.WriteLine("[ED] Create Command");
 			sqlCmd.CommandText = sql;
 			sqlCmd.Parameters.Add("@Table", table);
-			Console.WriteLine("[ED] Add Param");
 			SqliteDataReader sqlReader = sqlCmd.ExecuteReader();
-			Console.WriteLine("[ED] Sqlite Reader");
 
 			bool tableExists = false;
 			if (sqlReader.Read())
 				tableExists = true;
-			Console.WriteLine("[ED] Read");
 
 			sqlReader.Close();
-			Console.WriteLine("[ED] Close Reader");
 			return(tableExists);
 		}
 
