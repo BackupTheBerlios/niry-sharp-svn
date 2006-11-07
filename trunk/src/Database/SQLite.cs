@@ -92,7 +92,12 @@ namespace Niry.Database {
 
 		/// Execute Non Query
 		public int ExecuteNonQuery (string sql) {
-			SqliteCommand sqlCmd = CreateCommand(sql);
+			return(ExecuteNonQuery(sql, null));
+		}
+
+		/// Execute Non Query
+		public int ExecuteNonQuery (string sql, Hashtable sqlParams) {
+			SqliteCommand sqlCmd = CreateCommand(sql, sqlParams);
 			int ret = sqlCmd.ExecuteNonQuery();
 			sqlCmd.Dispose();
 			return(ret);
