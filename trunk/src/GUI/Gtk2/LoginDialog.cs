@@ -27,16 +27,16 @@ namespace Niry.GUI.Gtk2 {
 		// ============================================
 		// PUBLIC Events
 		// ============================================
-		public event FocusOutEventHandler UserFocusOut = null;
+		public event FocusInEventHandler PasswordFocusIn = null;
 
 		// ============================================
 		// PROTECTED Members
 		// ============================================
 		protected Gtk.Image imageLogo;
 		protected Gtk.Label labelUsername;
-		protected Gtk.Entry entryUsername;
 		protected Gtk.Label labelPassword;
 		protected Gtk.Entry entryPassword;
+		protected Gtk.ComboBoxEntry entryUsername;
 		protected Gtk.CheckButton checkRememberPassword;
 
 		// ============================================
@@ -67,10 +67,20 @@ namespace Niry.GUI.Gtk2 {
 		}
 
 		// ============================================
+		// PUBLIC Methods
+		// ============================================
+		public void UserNameComboBoxAppend (string[] usernames) {
+			if (usernames != null) {
+				foreach (string names in usernames)
+					entryUsername.AppendText(names);
+			}
+		}
+
+		// ============================================
 		// PRIVATE (Methods) Event Handlers
 		// ============================================
-		private void OnUsernameFocusOut (object o, FocusOutEventArgs args) {
-			if (UserFocusOut != null) UserFocusOut(o, args);
+		private void OnPasswordFocusIn (object o, FocusInEventArgs args) {
+			if (PasswordFocusIn != null) PasswordFocusIn(o, args);
 		}
 
 		// ============================================
@@ -88,9 +98,8 @@ namespace Niry.GUI.Gtk2 {
 			this.VBox.PackStart(this.labelUsername, false, false, 2);
 
 			// Entry Username
-			this.entryUsername = new Gtk.Entry();
-			this.entryUsername.Completion = new EntryCompletion();
-			this.entryUsername.FocusOutEvent += new FocusOutEventHandler(OnUsernameFocusOut);
+			this.entryUsername = ComboBoxEntry.NewText();
+			this.entryUsername.Entry.Completion = new EntryCompletion();
 			this.VBox.PackStart(this.entryUsername, false, false, 3);
 
 			// Label Password
@@ -102,6 +111,7 @@ namespace Niry.GUI.Gtk2 {
 			// Entry Password
 			this.entryPassword = new Gtk.Entry();
 			this.entryPassword.Visibility = false;
+			this.entryPassword.FocusInEvent += new FocusInEventHandler(OnPasswordFocusIn);
 			this.VBox.PackStart(this.entryPassword, false, false, 3);
 
 			// Check Button Remember Password
@@ -118,12 +128,12 @@ namespace Niry.GUI.Gtk2 {
 		}
 
 		public string Username {
-			get { return(this.entryUsername.Text); }
+			get { return(this.entryUsername.Entry.Text); }
 			set { 
 				if (value == null) {
-					this.entryUsername.Text = "";
+					this.entryUsername.Entry.Text = "";
 				} else {
-					this.entryUsername.Text = value;
+					this.entryUsername.Entry.Text = value;
 				}
 			}
 		}
@@ -145,7 +155,7 @@ namespace Niry.GUI.Gtk2 {
 		}
 
 		public Gtk.EntryCompletion UserNameCompletion {
-			get { return(this.entryUsername.Completion); }
+			get { return(this.entryUsername.Entry.Completion); }
 		}
 	}
 }
