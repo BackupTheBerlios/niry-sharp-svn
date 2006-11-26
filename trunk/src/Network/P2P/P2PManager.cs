@@ -87,9 +87,26 @@ namespace Niry.Network {
 		// PRIVATE Constructors
 		// ============================================
 		private P2PManager() {
+			// Setup Event (None)
+			PeerDisconnecting = null;
+			PeerConnected = null;
+			PeerReceived = null;
+			PeerSending = null;
+			PeerSended = null;
+			PeerError = null;
+			StatusChanged = null;
+
+			// Setup Members
+			allDone = null;
+			serverThread = null;
+			listenSock = null;
+			dontRemove = false;
+			knownPeers = null;
+			unknownPeers = null;
+
 			InitializeMembers();
 		}
-		
+
 		// ============================================
 		// PUBLIC Methods
 		// ============================================
