@@ -21,8 +21,26 @@
 
 using System;
 
+using Niry;
+using Niry.Utils;
+
 namespace Niry.GUI.Gtk2 {
 	public static class ImageUtils {
+		public static bool IsImage (string extension) {
+			if (TextUtils.IsEmpty(extension) == true) 
+				return(false);
+			extension = extension.Substring(1);
+
+			string[] pixbufExt = new string[] {
+				"wmf", "ani", "bmp", "gif", "ico", "jpg", "jpeg", "pcx", "png", 
+				"pnm", "ras", "tga", "tiff", "wbmp", "xbm", "xpm", "svg"
+			};
+
+			foreach (string ext in pixbufExt)
+				if (ext == extension) return(true);
+			return(false);
+		}
+
 		public static Gdk.Pixbuf GetPixbuf (string filename, int size) {
 			Gdk.Pixbuf pixbuf = new Gdk.Pixbuf(filename);
 			return(Resize(pixbuf, size, size));
