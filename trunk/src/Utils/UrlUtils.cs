@@ -27,6 +27,7 @@
 
 using System;
 using System.IO;
+using System.Net;
 using System.Text;
 using System.Diagnostics;
 
@@ -156,6 +157,27 @@ namespace Niry.Utils {
 		/// Url Decode
 		public static string UrlDecode (string str) {
 			return UrlDecode(str, Encoding.UTF8);
+		}
+
+		/// Get The Page Data
+		public static byte[] FetchPage (string url) {
+			return(FetchPage(url, null));
+		}
+
+		/// Get The Page Data
+		public static byte[] FetchPage (string url, WebProxy proxy) {
+			// Make Http Request
+			WebRequest request = WebRequest.Create(url);
+			request.Timeout = 5000;
+
+			// Set Proxy
+			if (proxy != null) request.Proxy = proxy;
+
+			// Wait Http Response
+			WebResponse response = request.GetResponse();
+			byte[] data = FileUtils.ReadStreamFully(response.GetResponseStream());
+			response.Close();
+			return(data);
 		}
 	}
 }

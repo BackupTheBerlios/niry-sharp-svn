@@ -80,9 +80,16 @@ namespace Niry.Utils {
 			return(images);
 		}
 
+		/// Get All The Images in The Page
+		public static string[] GetImages (string url, WebProxy proxy) {
+			UrlExtractor extractor = new UrlExtractor(url, proxy);
+			string[] images = extractor.GetImages();
+			return(images);
+		}
+
 		/// Get All The Links in The Page
-		public static string[] GetLinks (string url) {
-			UrlExtractor extractor = new UrlExtractor(url);
+		public static string[] GetLinks (string url, WebProxy proxy) {
+			UrlExtractor extractor = new UrlExtractor(url, proxy);
 			string[] links = extractor.GetLinks();
 			return(links);
 		}
