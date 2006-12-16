@@ -37,6 +37,8 @@ namespace Niry.Utils {
 
 		/// Return The Input String with The First Letter in Upper Size
 		public static string UpFirstChar (string text) {
+			if (text == null) return(null);
+
 			char[] txtchr = text.ToCharArray();
 			txtchr[0] = Char.ToUpper(txtchr[0]);
 			return(new String(txtchr));

@@ -33,7 +33,7 @@ namespace Niry.GUI.Gtk2 {
 
 			string[] pixbufExt = new string[] {
 				"wmf", "ani", "bmp", "gif", "ico", "jpg", "jpeg", "pcx", "png", 
-				"pnm", "ras", "tga", "tiff", "wbmp", "xbm", "xpm", "svg"
+				"pnm", "ras", "tga", "tiff", "wbmp", "xbm", "xpm", 
 			};
 
 			foreach (string ext in pixbufExt)

@@ -88,6 +88,8 @@ namespace Niry.Utils {
 		/// Get File Extension
 		public static string GetExtension (string path) {
 			FileInfo fileInfo = new FileInfo(path);
+			if (TextUtils.IsEmpty(fileInfo.Extension))
+				return(null);
 			return(fileInfo.Extension.Remove(0, 1));
 		}
 

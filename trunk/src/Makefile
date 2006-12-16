@@ -8,7 +8,7 @@ CFLAGS =
 PKG_GTK = -pkg:gtk-sharp-2.0
 PKG_CAIRO = -r:Mono.Cairo.dll
 PKG_SQLITE = -r:System.Data.dll -r:Mono.Data.SqliteClient.dll
-PKGS = $(PKG_GTK) $(PKG_CAIRO) $(PKG_SQLITE)
+PKGS = $(PKG_GTK) $(PKG_SQLITE)
 
 # ============================= Niry Sharp Infos ====
 NAME = Niry Sharp
@@ -19,18 +19,20 @@ COMPILER = `$(CC) --version`
 SRC_BASE = 		AssemblyInfo.cs	\
 				Delegates.cs
 
-SRC_GUI_GTK2 = 	GUI/Gtk2/ExtMenuItem.cs	\
-				GUI/Gtk2/ImageUtils.cs		\
-				GUI/Gtk2/LoginDialog.cs		\
-				GUI/Gtk2/PopupMenu.cs		\
-				GUI/Gtk2/ProxySettings.cs	\
-				GUI/Gtk2/ScrollBox.cs		\
-				GUI/Gtk2/ShapedWindow.cs	\
-				GUI/Gtk2/Spinner.cs			\
-				GUI/Gtk2/SplashScreen.cs	\
-				GUI/Gtk2/TimeUtils.cs		\
-				GUI/Gtk2/WindowUtils.cs
-SRC_GUI = $(SRC_GUI_GTK2)
+SRC_GUI_GTK_28 = 	GUI/Gtk2/ExtMenuItem.cs	\
+					GUI/Gtk2/ImageUtils.cs		\
+					GUI/Gtk2/LoginDialog.cs		\
+					GUI/Gtk2/PopupMenu.cs		\
+					GUI/Gtk2/ProxySettings.cs	\
+					GUI/Gtk2/ScrollBox.cs		\
+					GUI/Gtk2/ShapedWindow.cs	\
+					GUI/Gtk2/TimeUtils.cs		\
+					GUI/Gtk2/WindowUtils.cs
+
+SRC_GUI_GTK_210 =	GUI/Gtk2/Spinner.cs			\
+					GUI/Gtk2/SplashScreen.cs
+
+SRC_GUI = $(SRC_GUI_GTK_28)
 
 SRC_DATABASE =	Database/SQLite.cs
 
@@ -52,11 +54,19 @@ SRC_UTILS = 	Utils/CryptoUtils.cs		\
 
 SRC = $(SRC_BASE) $(SRC_GUI) $(SRC_DATABASE) $(SRC_NETWORK) $(SRC_UTILS)
 
-NirySharp: NirySharpInfo $(SRC)
+NirySharp: NirySharpInfo $(SRC) $(SRC_GUI_GTK_210)
 	@echo
-	@echo "$(NAME) Plugin (DLL)"
+	@echo "$(NAME)"
 	@echo "======================================================="
 	$(CC) $(CFLAGS) -target:library $(PKGS) $(SRC) -out:niry-sharp.dll
+	@echo "======================================================="
+	@echo
+
+NirySharpGtk210: NirySharpInfo $(SRC)
+	@echo
+	@echo "$(NAME) [Need Gtk 2.10]"
+	@echo "======================================================="
+	$(CC) $(CFLAGS) -target:library $(PKGS) $(PKG_CAIRO) $(SRC_GUI_GTK_210) $(SRC) -out:niry-sharp.dll
 	@echo "======================================================="
 	@echo
 
