@@ -51,7 +51,8 @@ namespace Niry.Network {
 		// ============================================
 		// PROTECTED Members
 		// ============================================
-		protected StringBuilder response = new StringBuilder();		
+		protected StringBuilder response = new StringBuilder();
+		protected byte[] sendingData = null;
 
 		// ============================================
 		// PROTECTED Members
@@ -144,6 +145,8 @@ namespace Niry.Network {
 
 		/// Send Data 
 		public void Send (byte[] data) {
+			sendingData = data;
+
 			// Raise Sending Event
 			// ======================================================
 			if (Sending != null)
@@ -158,7 +161,7 @@ namespace Niry.Network {
 
 			// Send
 			AsyncCallback sendCb = new AsyncCallback(AsyncSendCallBack);
-			this.socket.BeginSend(data, 0, data.Length, SocketFlags.None, sendCb, socket);
+			this.socket.BeginSend(sendingData, 0, data.Length, SocketFlags.None, sendCb, socket);
 		}
 
 		/// Start Receive (Call This Only Once)
@@ -288,9 +291,16 @@ namespace Niry.Network {
 		// ============================================
 		// PUBLIC Properties
 		// ============================================
-		/// Get Peer Response StringBuilder
+		/// Get or Set Peer Response StringBuilder
 		public StringBuilder Response {
 			get { return(this.response); }
+			set { this.response = value; }
+		}
+
+		/// Get or Set Peer Sending Data
+		public byte[] SendingData {
+			get { return(this.sendingData); }
+			set { this.sendingData = value; }
 		}
 
 		/// Get or Set Peer Informations

@@ -45,6 +45,14 @@ namespace Niry.Utils {
 		}
 
 		/// Base 64 Encode
+		public static string Base64Encode (byte[] data) {
+			try {
+				return(Convert.ToBase64String(data));
+			} catch {}
+			return(null);
+		}
+
+		/// Base 64 Encode
 		public static string Base64Encode (string data) {
 			try {
 				byte[] dataByte = new byte[data.Length];
