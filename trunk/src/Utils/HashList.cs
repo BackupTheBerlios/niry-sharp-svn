@@ -200,5 +200,36 @@ namespace Niry.Utils {
 		public ICollection Values {
 			get { return(this.data.Values); }
 		}
+
+
+		public static void Main() {
+			HashList hashList = new HashList();
+			hashList.Add("Prova", "Ciao 1");
+			hashList.Add("Prova", "Ciao 2");
+			hashList.Add("Prova", "Ciao 3");
+			hashList.Add("Pippo", "3 Ciao");
+			hashList.Add("Pippo", "2 Ciao");
+			hashList.Add("Pippo", "1 Ciao");
+
+			Console.WriteLine();
+			foreach (ArrayList list in hashList.Values) {
+				foreach (string s in list)
+					Console.WriteLine(s);
+			}
+
+			Console.WriteLine();
+			hashList.Remove("Prova", "Ciao 1");
+			foreach (ArrayList list in hashList.Values) {
+				foreach (string s in list)
+					Console.WriteLine(s);
+			}
+
+			Console.WriteLine();
+			hashList.Remove("Pippo");
+			foreach (ArrayList list in hashList.Values) {
+				foreach (string s in list)
+					Console.WriteLine(s);
+			}
+		}
 	}
 }

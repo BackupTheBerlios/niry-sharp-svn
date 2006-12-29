@@ -87,6 +87,7 @@ namespace Niry.GUI.Gtk2 {
 		public new void Clear() {
 			Gtk.ListStore store = Model as Gtk.ListStore;
 			store.Clear();
+			Model = store;
 		}
 
 		// ========================================
@@ -97,6 +98,28 @@ namespace Niry.GUI.Gtk2 {
 			if (GetActiveIter(out iter))
 				return((string) Model.GetValue(iter, textCell));
 			return(null);
+		}
+
+		public int GetPosition (object value, int cell) {
+			Gtk.ListStore store = Model as Gtk.ListStore;
+			TreeIter iter = store.Prepend();
+			int index = 0;
+			while (store.IterNext(ref iter) == true) {
+				if (store.GetValue(iter, cell) == value)
+					return(index);
+				index++;
+			}
+			return(-1);
+		}
+
+		public int GetLength() {
+			Gtk.ListStore store = Model as Gtk.ListStore;
+			TreeIter iter = store.Prepend();
+			int index = 0;
+			while (store.IterNext(ref iter) == true) {
+				index++;
+			}
+			return(index);
 		}
 
 		// ========================================
