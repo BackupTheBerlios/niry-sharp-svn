@@ -1,8 +1,0 @@
-using System.Reflection;
-using System.Runtime.CompilerServices;
-
-[assembly: AssemblyVersion("@version@")]
-[assembly: AssemblyTitle ("Niry-Sharp")]
-[assembly: AssemblyDescription ("Niry C# Utility Library")]
-[assembly: AssemblyCopyright ("Copyright (C) Matteo Bertozzi")]
-[assembly: AssemblyCompany ("Matteo Bertozzi")]
