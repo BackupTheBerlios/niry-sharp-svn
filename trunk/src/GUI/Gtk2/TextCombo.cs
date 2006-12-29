@@ -82,6 +82,14 @@ namespace Niry.GUI.Gtk2 {
 		}
 
 		// ========================================
+		// PUBLIC (Clear) Methods
+		// ========================================
+		public new void Clear() {
+			Gtk.ListStore store = Model as Gtk.ListStore;
+			store.Clear();
+		}
+
+		// ========================================
 		// PUBLIC (Get) Methods
 		// ========================================
 		public string GetActiveText() {
