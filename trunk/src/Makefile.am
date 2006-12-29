@@ -37,6 +37,7 @@ SRC_NETWORK =	Network/FtpClient.cs		\
 SRC_UTILS = 	Utils/CryptoUtils.cs		\
 				Utils/Debug.cs				\
 				Utils/FileUtils.cs			\
+				Utils/FileTypes.cs			\
 				Utils/TextUtils.cs			\
 				Utils/UrlExtractor.cs		\
 				Utils/UrlUtils.cs

@@ -68,7 +68,7 @@ namespace Niry.GUI.Gtk2 {
 
 		public void AppendText (string[] entries) {
 			foreach (string text in entries) {
-				AppendText(entries);
+				AppendText(text);
 			}
 		}
 
