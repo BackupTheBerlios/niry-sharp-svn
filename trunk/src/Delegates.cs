@@ -27,8 +27,17 @@ namespace Niry {
 	// ============================================
 	// PUBLIC Delegates
 	// ============================================
-	/// Event Handoler Without Arguments but with return value
+	/// Event Handler Without Arguments but with return value
 	public delegate bool DecisionBlankEventHandler (object sender);
+
+	// Event Handler Without Arguments but with Object as return value
+	public delegate object RequestBlankEventHandler (object sender);
+
+	// Event Handler Without Arguments but with Array as return value
+	public delegate object[] MultiRequestBlankEventHandler (object sender);
+
+	// Event Handler with String Arguments but with Array as return value
+	public delegate object[] MultiRequestStringEventHandler (object sender, string arg);
 
 	/// Event Handler without Arguments
 	public delegate void BlankEventHandler (object sender);

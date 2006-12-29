@@ -316,10 +316,8 @@ namespace Niry.Network {
 				foreach (object info in p2pManager.knownPeers.Keys) {
 					IComparable obj = info as IComparable;
 					if (obj != null) {
-						Debug.Log("P2PManager.Compare With IComparable");
 						if (obj.CompareTo(user) == 0) return(info);
 					} else {
-						Debug.Log("P2PManager.Compare With Default");
 						if (info == user) return(info);
 					}
 				}

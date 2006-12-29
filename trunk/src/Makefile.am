@@ -38,6 +38,7 @@ SRC_UTILS = 	Utils/CryptoUtils.cs		\
 				Utils/Debug.cs				\
 				Utils/FileUtils.cs			\
 				Utils/FileTypes.cs			\
+				Utils/HashList.cs			\
 				Utils/TextUtils.cs			\
 				Utils/UrlExtractor.cs		\
 				Utils/UrlUtils.cs
