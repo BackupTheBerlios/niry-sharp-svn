@@ -75,11 +75,24 @@ namespace Niry.GUI.Gtk2 {
 			store.SetValue(iter, this.textCell, text);
 		}
 
+		public void AppendText (string[] entries) {
+			foreach (string text in entries) {
+				AppendText(entries);
+			}
+		}
+
 		public void AppendText (Gdk.Pixbuf pixbuf, string text) {
 			Gtk.ListStore store = Model as Gtk.ListStore;
 			TreeIter iter = store.Append();
 			store.SetValue(iter, this.imageCell, pixbuf);
 			store.SetValue(iter, this.textCell, text);
+		}
+
+		public void AppendText (Gdk.Pixbuf[] pixbufs, string[] entries) {
+			int length = Math.Min(pixbufs.Length, entries.Length);
+			for (int i=0; i < length; i++) {
+				AppendText(pixbufs[i], entries[i]);
+			}
 		}
 
 		// ========================================

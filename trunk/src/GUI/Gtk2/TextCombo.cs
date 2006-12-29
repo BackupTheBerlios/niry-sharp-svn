@@ -66,6 +66,12 @@ namespace Niry.GUI.Gtk2 {
 			store.SetValue(iter, this.textCell, text);
 		}
 
+		public void AppendText (string[] entries) {
+			foreach (string text in entries) {
+				AppendText(entries);
+			}
+		}
+
 		// ========================================
 		// PUBLIC (Insert) Methods
 		// ========================================
