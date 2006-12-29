@@ -82,6 +82,16 @@ namespace Niry.GUI.Gtk2 {
 		}
 
 		// ========================================
+		// PUBLIC (Get) Methods
+		// ========================================
+		public string GetActiveText() {
+			TreeIter iter;
+			if (GetActiveIter(out iter))
+				return((string) Model.GetValue(iter, textCell));
+			return(null);
+		}
+
+		// ========================================
 		// PUBLIC Properties
 		// ========================================
 		public Gtk.ListStore Store {
