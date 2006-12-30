@@ -34,11 +34,13 @@ SRC_NETWORK =	Network/FtpClient.cs		\
 				Network/Util.cs				\
 				Network/abstract/Server.cs
 
-SRC_UTILS = 	Utils/CryptoUtils.cs		\
+SRC_UTILS = 	Utils/ArrayUtils.cs			\
+				Utils/CryptoUtils.cs		\
 				Utils/Debug.cs				\
 				Utils/FileUtils.cs			\
 				Utils/FileTypes.cs			\
 				Utils/HashList.cs			\
+				Utils/Rijndael.cs			\
 				Utils/TextUtils.cs			\
 				Utils/UrlExtractor.cs		\
 				Utils/UrlUtils.cs
