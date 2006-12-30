@@ -26,13 +26,13 @@ using System.Text.RegularExpressions;
 
 namespace Niry.Utils {
 	public enum FileType {
-		Directory,
-		Package,
+		Package = 0,
 		Document,
 		Executable,
 		Image,
 		Audio,
-		Video
+		Video,
+		Directory
 	}
 
 	public static class FileTypes {
@@ -75,14 +75,14 @@ namespace Niry.Utils {
 		// ============================================
 		// PUBLIC (IsFormat) Methods
 		// ============================================
-		public static bool IsType (string path, FileType type) {
+		public static bool IsMatch (string path, FileType type) {
 			if (type == FileType.Directory) return(false);
 
 			string pattern = MakePattern(type);
 			return(Regex.IsMatch(path, pattern, RegexOptions.IgnoreCase));	
 		}
 
-		public static bool IsType (string path, string type) {
+		public static bool IsMatch (string path, string type) {
 			if (type == FileType.Directory.ToString()) return(false);
 
 			string pattern = MakePattern(type);
