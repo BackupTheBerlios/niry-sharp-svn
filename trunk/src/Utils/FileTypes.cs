@@ -27,11 +27,11 @@ using System.Text.RegularExpressions;
 namespace Niry.Utils {
 	public enum FileType {
 		Package = 0,
-		Document,
-		Executable,
-		Image,
-		Audio,
-		Video,
+		Document = 1,
+		Executable = 2,
+		Image = 3,
+		Audio = 4,
+		Video = 5,
 		Directory
 	}
 
@@ -46,7 +46,6 @@ namespace Niry.Utils {
 				"zip", "jar", "bz2", "tar", "rpm", "ar", "war",
 				"ear"
 			},
-
 			// FileType.Document
 			new string[] {
 				"doc", "pdf", "ps", "tex", "txt", "wri"
@@ -68,7 +67,7 @@ namespace Niry.Utils {
 			new string[] {
 				"avi", "asf", "mov", "mpeg", "mpg", "mpg4", "mp4",
 				"rm", "divx", "qt", "wmv", "ram", "m1v", "m2v",
-				"rv", "vob", "asx"
+				"rv", "vob", "asx", "ogg"
 			}
 		};
 
