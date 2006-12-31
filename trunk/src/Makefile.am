@@ -61,4 +61,4 @@ PKG_GRAPHICS = -r:System.Drawing
 PKGS = $(GTKSHARP_LIBS) $(PKG_SQLITE) $(PKG_GRAPHICS)
 
 niry-sharp.dll: $(niry_build_sources)
-	$(MCS) $(PKGS) -target:library -out:$@ $(niry_build_sources)
+	$(MCS) $(PKGS) -target:library -unsafe -out:$@ $(niry_build_sources)
