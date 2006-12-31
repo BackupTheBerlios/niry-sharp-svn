@@ -44,7 +44,7 @@ namespace Niry.Utils {
 			new string[] {
 				"arc", "arj", "gz", "lzh", "pak", "rar", "z", 
 				"zip", "jar", "bz2", "tar", "rpm", "ar", "war",
-				"ear"
+				"ear", "ace", "arj"
 			},
 			// FileType.Document
 			new string[] {
@@ -52,7 +52,7 @@ namespace Niry.Utils {
 			},
 			// FileType.Executable
 			new string[] {
-				"bat", "com", "exe", "pm"
+				"bat", "com", "exe", "pm", "bin"
 			},
 			// FileType.Image
 			new string[] {
@@ -61,13 +61,14 @@ namespace Niry.Utils {
 			},
 			// FileType.Audio
 			new string[] {
-				"au", "mp2", "mp3", "mid", "ogg", "rm", "sm", "wav"
+				"au", "mp2", "mp3", "mp4", "mid", "ogg", "rm", "sm", 
+				"wav", "mpc", "aac", "ape", "wma"
 			},
 			// FileType.Video
 			new string[] {
 				"avi", "asf", "mov", "mpeg", "mpg", "mpg4", "mp4",
 				"rm", "divx", "qt", "wmv", "ram", "m1v", "m2v",
-				"rv", "vob", "asx", "ogg"
+				"rv", "vob", "asx", "ogg", "rm", "vivo"
 			}
 		};
 

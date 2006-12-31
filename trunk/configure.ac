@@ -15,6 +15,17 @@ AC_PATH_PROG(CSC, csc, no)
 AC_PATH_PROG(MCS, gmcs, no)
 AC_PATH_PROG(MONO, mono, no)
 
+required_assemblies="Mono.Data.SqliteClient System.Data System.Drawing"
+for asm in $required_assemblies; do
+	AC_MSG_CHECKING([for $asm.dll])
+	if test ! -e `$PKG_CONFIG --variable=prefix mono`/lib/mono/2.0/$asm.dll; then
+		AC_MSG_RESULT([not found])
+		AC_MSG_ERROR([missing required Mono Assembly: $asm.dll])
+	else
+		AC_MSG_RESULT([found])
+	fi
+done
+
 CS="C#"
 if test "x$CSC" = "xno" -a "x$MCS" = "xno"  ; then
 	AC_MSG_ERROR([No $CS compiler found])
