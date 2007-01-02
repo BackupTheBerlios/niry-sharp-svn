@@ -20,12 +20,37 @@
  */
 
 using System;
+using System.IO;
 using System.Text;
 using System.Security.Cryptography;
 
 namespace Niry.Utils {
 	/// Hash/Crypto Utils
 	public static class CryptoUtils {
+		/// Return md5sum of specified file
+		public static string MD5Sum (string filename) {
+			FileStream stream = new FileStream(filename, FileMode.Open);
+			MD5 md5 = new MD5CryptoServiceProvider();
+			byte[] hash = md5.ComputeHash(stream);
+			stream.Close();
+
+			StringBuilder buffer = new StringBuilder();
+			foreach (byte hex in hash) buffer.Append(hex.ToString("X2"));
+			return(buffer.ToString());
+		}
+
+		/// Return sha1sum of specified file
+		public static string SHA1Sum (string filename) {
+			FileStream stream = new FileStream(filename, FileMode.Open);
+			SHA1 sha1 = new SHA1CryptoServiceProvider();
+			byte[] hash = sha1.ComputeHash(stream);
+			stream.Close();
+
+			StringBuilder buffer = new StringBuilder();
+			foreach (byte hex in hash) buffer.Append(hex.ToString("X2"));
+			return(buffer.ToString());
+		}
+
 		/// Return MD5 String
 		public static string MD5String (string text) {
 			ASCIIEncoding encoding = new ASCIIEncoding();
@@ -35,7 +60,7 @@ namespace Niry.Utils {
 			StringBuilder md5Builder = new StringBuilder();
 			foreach (byte b in hash) md5Builder.Append(b.ToString("x2"));
 			return(md5Builder.ToString());
-		}
+		}		
 
 		/// Return SHA1 String	
 		public static string SHA1String (string text) {

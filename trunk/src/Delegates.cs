@@ -48,6 +48,9 @@ namespace Niry {
 	/// Event Handler with Object Argument
 	public delegate void ObjectEventHandler (object sender, object arg);
 
+	/// Event handler with 2 Object Arguments
+	public delegate void ThreeObjectEventHandler (object sender, object arg1, object arg2);
+
 	/// Event Handler with Socket Argument
 	public delegate void SocketEventHandler (object sender, Socket arg);
 
