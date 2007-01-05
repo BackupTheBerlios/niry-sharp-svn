@@ -35,6 +35,57 @@ namespace Niry.Utils {
 			}
 		}
 
+		/// Creates a uniquely named, zero-byte temporary file on disk 
+		/// and returns the full path of that file.
+		public static string GetTempFileName (string directory) {
+			FileStream stream = null;
+			string path;
+
+			Random rnd = new Random();
+			do {
+				int num = rnd.Next() + 1;
+				path = Path.Combine(directory, "tmp" + num.ToString("x") + ".tmp");
+
+				try {
+					stream = new FileStream (path, FileMode.CreateNew);
+				} catch {
+				}
+			} while (stream == null);
+			
+			stream.Close();
+			return(path);
+		}
+
+		/// Search File by its sha1sum and length
+		public static string SearchFile (string root, string sha1sum, long length) {
+			return(SearchFile(new DirectoryInfo(root), sha1sum, length));
+		}
+
+		/// Search File by its sha1sum and length
+		public static string SearchFile (DirectoryInfo root, string sha1sum, long length) {
+			// Scan Files
+			FileInfo[] files = root.GetFiles();
+			if (files != null) {
+				foreach (FileInfo file in files) {
+					if (file.Length == length && 
+						CryptoUtils.SHA1Sum(file.FullName) == sha1sum)
+					{
+						return(file.FullName);
+					}
+				}
+			}
+
+			// Scan SubDirectory
+			DirectoryInfo[] subDirectories = root.GetDirectories();
+			if (subDirectories != null) {
+				foreach (DirectoryInfo subDir in subDirectories) {
+					SearchFile(subDir, sha1sum, length);
+				}
+			}
+
+			return(null);
+		}
+
 		/// Read Enteire File
 		public static byte[] ReadEntireFile (string path) {
 			// Read File from Hard Disk
@@ -84,14 +135,21 @@ namespace Niry.Utils {
 		}
 
 		/// Get String Rapresenting byte Size
+		/// Get String Rapresenting byte Size
 		public static string GetSizeString (long byteSize) {
-			if (byteSize > 1073741824)
-				return((byteSize / 1073741824).ToString() + "Gb");
-			if (byteSize > 1048576)
-				return((byteSize / 1048576).ToString() + "Mb");
-			if (byteSize > 1024)
-				return((byteSize / 1024).ToString() + "Kb");
-			
+			if (byteSize >= 1073741824) {
+				string max = (byteSize / 1073741824).ToString();
+				string min = (byteSize % 1073741824).ToString();
+				return(max + '.' + min[0] + "Gb");
+			} else if (byteSize >= 1048576) {
+				string max = (byteSize / 1048576).ToString();
+				string min = (byteSize % 1048576).ToString();
+				return(max + '.' + min[0] + "Mb");
+			} else if (byteSize >= 1024) {
+				string max = (byteSize / 1024).ToString();
+				string min = (byteSize % 1024).ToString();
+				return(max + '.' + min[0] + "Kb");
+			}
 			return(byteSize.ToString() + "byte");
 		}
 

@@ -29,25 +29,25 @@ namespace Niry.Utils {
 	public static class CryptoUtils {
 		/// Return md5sum of specified file
 		public static string MD5Sum (string filename) {
-			FileStream stream = new FileStream(filename, FileMode.Open);
+			FileStream stream = File.OpenRead(filename);
 			MD5 md5 = new MD5CryptoServiceProvider();
 			byte[] hash = md5.ComputeHash(stream);
 			stream.Close();
 
 			StringBuilder buffer = new StringBuilder();
-			foreach (byte hex in hash) buffer.Append(hex.ToString("X2"));
+			foreach (byte hex in hash) buffer.Append(hex.ToString("x2"));
 			return(buffer.ToString());
 		}
 
 		/// Return sha1sum of specified file
 		public static string SHA1Sum (string filename) {
-			FileStream stream = new FileStream(filename, FileMode.Open);
+			FileStream stream = File.OpenRead(filename);
 			SHA1 sha1 = new SHA1CryptoServiceProvider();
 			byte[] hash = sha1.ComputeHash(stream);
 			stream.Close();
 
 			StringBuilder buffer = new StringBuilder();
-			foreach (byte hex in hash) buffer.Append(hex.ToString("X2"));
+			foreach (byte hex in hash) buffer.Append(hex.ToString("x2"));
 			return(buffer.ToString());
 		}
 
