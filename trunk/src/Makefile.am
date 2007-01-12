@@ -7,6 +7,7 @@ DISTCLEANFILES = Info.cs AssemblyInfo.cs Makefile.in
 SRC_BASE = 		Delegates.cs
 
 SRC_GUI_GTK_28 = 	GUI/Gtk2/CellRendererBitArray.cs	\
+					GUI/Gtk2/Dispatch.cs				\
 					GUI/Gtk2/ExtMenuItem.cs			\
 					GUI/Gtk2/ImageCombo.cs				\
 					GUI/Gtk2/ImageUtils.cs				\
