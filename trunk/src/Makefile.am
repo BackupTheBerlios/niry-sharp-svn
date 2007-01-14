@@ -47,6 +47,7 @@ SRC_UTILS = 	Utils/ArrayUtils.cs			\
 				Utils/HashList.cs			\
 				Utils/Rijndael.cs			\
 				Utils/TextUtils.cs			\
+				Utils/TimeUtils.cs			\
 				Utils/UrlExtractor.cs		\
 				Utils/UrlUtils.cs
 
