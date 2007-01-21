@@ -67,6 +67,10 @@ namespace Niry.Graphics {
 		}
 
 		// Set Color Part
+		public static int SetAlpha (int color, byte value) {
+			return((color & 0x00FFFFFF) | (value << 24));
+		}
+
 		public static int SetRed (int color, byte value) {
 			return((color & 0x00FFFF) | (value << 16));
 		}
@@ -107,6 +111,15 @@ namespace Niry.Graphics {
 		// Setup Color
 		public static int SetColor (byte r, byte g, byte b) {
 			int color = 0x000000;
+			color = SetRed(color, r);
+			color = SetGreen(color, g);
+			color = SetBlue(color, b);
+			return(color);
+		}
+
+		public static int SetColor (byte a, byte r, byte g, byte b) {
+			int color = 0x000000;
+			color = SetAlpha(color, a);
 			color = SetRed(color, r);
 			color = SetGreen(color, g);
 			color = SetBlue(color, b);
