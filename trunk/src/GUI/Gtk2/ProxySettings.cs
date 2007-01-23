@@ -118,7 +118,7 @@ namespace Niry.GUI.Gtk2 {
 			this.PackStart(this.tableAuth, false, false, 2);
 
 			EnableProxyToggled(this.ckEnableProxy, null);
-			UseProxyAuthToggled(this.ckProxyAuth && this.ckEnableProxy, null);
+			UseProxyAuthToggled(this.ckProxyAuth, null);
 		}
 
 		// ============================================
@@ -131,7 +131,7 @@ namespace Niry.GUI.Gtk2 {
 		}
 
 		private void UseProxyAuthToggled (object sender, EventArgs args) {
-			this.tableAuth.Sensitive = UseProxyAuth;
+			this.tableAuth.Sensitive = UseProxyAuth && EnableProxy;
 		}
 
 		// ============================================
