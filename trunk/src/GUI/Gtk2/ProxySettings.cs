@@ -118,7 +118,7 @@ namespace Niry.GUI.Gtk2 {
 			this.PackStart(this.tableAuth, false, false, 2);
 
 			EnableProxyToggled(this.ckEnableProxy, null);
-			UseProxyAuthToggled(this.ckProxyAuth, null);
+			UseProxyAuthToggled(this.ckProxyAuth && this.ckEnableProxy, null);
 		}
 
 		// ============================================
