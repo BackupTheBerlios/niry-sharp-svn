@@ -148,22 +148,31 @@ namespace Niry.GUI.Gtk2 {
 		}
 
 		public string Host {
-			set { this.entryHost.Text = value; }
+			set { 
+				if (value == null) value = "";
+				this.entryHost.Text = value;
+			}
 			get { return(this.entryHost.Text); }
 		}
 
 		public int Port {
-			set { this.spinPort.Value = value; }
+			set {this.spinPort.Value = value; }
 			get { return(this.spinPort.ValueAsInt); }
 		}
 
 		public string Username {
-			set { this.entryUsername.Text = value; }
+			set {
+				if (value == null) value = "";
+				this.entryUsername.Text = value;
+			}
 			get { return(this.entryUsername.Text); }
 		}
 
 		public string Password {
-			set { this.entryPassword.Text = value; }
+			set {
+				if (value == null) value = "";
+				this.entryPassword.Text = value;
+			}
 			get { return(this.entryPassword.Text); }
 		}
 	}

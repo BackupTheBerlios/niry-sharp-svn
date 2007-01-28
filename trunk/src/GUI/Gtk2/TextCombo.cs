@@ -102,11 +102,9 @@ namespace Niry.GUI.Gtk2 {
 
 		public int GetPosition (object value, int cell) {
 			Gtk.ListStore store = Model as Gtk.ListStore;
-			TreeIter iter = store.Prepend();
 			int index = 0;
-			while (store.IterNext(ref iter) == true) {
-				if (store.GetValue(iter, cell) == value)
-					return(index);
+			foreach (object[] row in store) {
+				if (row[cell] == value) return(index);
 				index++;
 			}
 			return(-1);
@@ -114,10 +112,9 @@ namespace Niry.GUI.Gtk2 {
 
 		public int GetLength() {
 			Gtk.ListStore store = Model as Gtk.ListStore;
-			TreeIter iter = store.Prepend();
 			int index = 0;
-			while (store.IterNext(ref iter) == true) {
-				index++;
+			foreach (object[] row in store) {
+				if (row != null) index++;
 			}
 			return(index);
 		}
