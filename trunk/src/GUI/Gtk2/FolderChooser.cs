@@ -59,7 +59,7 @@ namespace Niry.GUI.Gtk2 {
 			HeadersVisible = false;
 			Reorderable = false;
 			NodeStore = store;
-			Selection.SelectionMode.Multiple;
+			Selection.Mode = SelectionMode.Multiple;
 
 			// Setup TreeView Columns
 			AppendColumn("", new Gtk.CellRendererPixbuf(), "pixbuf", 0);
