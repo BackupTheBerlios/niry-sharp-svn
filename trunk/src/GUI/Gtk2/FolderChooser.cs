@@ -19,6 +19,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
+using Gtk;
+
 using System;
 using System.Threading;
 using System.Reflection;
@@ -66,8 +68,8 @@ namespace Niry.GUI.Gtk2 {
 			AppendColumn("Name", new Gtk.CellRendererText(), "text", 1);
 
 			// Initialize TreeView Event
-			RowExpanded += new RowExpandedHandler(OnRowExpanded);
-			RowCollapsed += new RowCollapsedHandler(OnRowCollapsed);
+			RowExpanded += new Gtk.RowExpandedHandler(OnRowExpanded);
+			RowCollapsed += new Gtk.RowCollapsedHandler(OnRowCollapsed);
 		}
 
 		// ========================================
