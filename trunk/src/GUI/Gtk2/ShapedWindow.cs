@@ -32,6 +32,12 @@ namespace Niry.GUI.Gtk2 {
 		// ============================================
 		// PUBLIC Constructors
 		// ============================================
+		public ShapedWindow() : base(WindowType.Toplevel) {
+		}
+
+		public ShapedWindow (WindowType type) : base(type) {
+		}
+
 		public ShapedWindow (string fileName) : base(WindowType.Toplevel) {
 			InitializeWindow(new Gdk.Pixbuf(fileName));
 		}
@@ -41,6 +47,17 @@ namespace Niry.GUI.Gtk2 {
 		}
 
 		public ShapedWindow (Gdk.Pixbuf pixbuf, WindowType type) : base(type) {
+			InitializeWindow(pixbuf);
+		}
+
+		// ============================================
+		// PUBLIC Methods
+		// ============================================
+		public void Setup (string fileName) {
+			InitializeWindow(new Gdk.Pixbuf(fileName));
+		}
+
+		public void Setup (Gdk.Pixbuf pixbuf) {
 			InitializeWindow(pixbuf);
 		}
 
@@ -79,6 +96,7 @@ namespace Niry.GUI.Gtk2 {
 		private void OnWindowExpose (object sender, ExposeEventArgs args) {
 			Gdk.Window gdkWindow = ((Gtk.Window) sender).GdkWindow;
 			gdkWindow.SetBackPixmap(this.maskPixmapWindow, false);
+			QueueDraw();
 			args.RetVal = false;
 		}
 	}

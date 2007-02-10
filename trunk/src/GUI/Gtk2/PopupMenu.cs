@@ -39,6 +39,15 @@ namespace Niry.GUI.Gtk2 {
 			Append(item);
 		}
 
+		public void AddItem (ExtCheckMenuItem item) {
+			Append(item);
+		}
+
+		public void AddItem (ExtCheckMenuItem item, EventHandler handler) {
+			item.Activated += handler;
+			Append(item);
+		}
+
 		public MenuItem AddItem (string label, Menu subMenu) {
 			MenuItem item = new MenuItem(label);
 			item.Submenu = subMenu;

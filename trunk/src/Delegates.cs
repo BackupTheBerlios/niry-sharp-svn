@@ -30,6 +30,9 @@ namespace Niry {
 	/// Event Handler Without Arguments but with return value
 	public delegate bool DecisionBlankEventHandler (object sender);
 
+	/// Event Handler with Two String Argument and with return value
+	public delegate bool DecisionTwoStringEventHandler (object sender, string arg1, string arg2);
+
 	// Event Handler Without Arguments but with Object as return value
 	public delegate object RequestBlankEventHandler (object sender);
 
@@ -44,6 +47,9 @@ namespace Niry {
 
 	/// Event Handler with String Argument
 	public delegate void StringEventHandler (object sender, string arg);
+
+	/// Event Handler with Two String Argument
+	public delegate void TwoStringEventHandler (object sender, string arg1, string arg2);
 
 	/// Event Handler with Object Argument
 	public delegate void ObjectEventHandler (object sender, object arg);

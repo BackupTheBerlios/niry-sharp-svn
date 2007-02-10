@@ -91,6 +91,18 @@ namespace Niry.GUI.Gtk2 {
 		}
 
 		// ========================================
+		// PUBLIC (Set) Methods
+		// ========================================
+		public void SetActive (string value) {
+			SetActive(value, textCell);
+		}
+
+		public void SetActive (object value, int cell) {
+			int pos = GetPosition(value, cell);
+			if (pos >= 0) Active = pos;
+		}
+
+		// ========================================
 		// PUBLIC (Get) Methods
 		// ========================================
 		public string GetActiveText() {
@@ -98,6 +110,10 @@ namespace Niry.GUI.Gtk2 {
 			if (GetActiveIter(out iter))
 				return((string) Model.GetValue(iter, textCell));
 			return(null);
+		}
+
+		public int GetPosition (string value) {
+			return(GetPosition(value, textCell));
 		}
 
 		public int GetPosition (object value, int cell) {

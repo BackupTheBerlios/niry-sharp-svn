@@ -312,13 +312,15 @@ namespace Niry.Network {
 	
 		#region Search User/Peer
 		public static object ContainsUser (object user) {
-			lock (p2pManager.knownPeers) {
-				foreach (object info in p2pManager.knownPeers.Keys) {
-					IComparable obj = info as IComparable;
-					if (obj != null) {
-						if (obj.CompareTo(user) == 0) return(info);
-					} else {
-						if (info == user) return(info);
+			if (p2pManager.knownPeers != null) {
+				lock (p2pManager.knownPeers) {
+					foreach (object info in p2pManager.knownPeers.Keys) {
+						IComparable obj = info as IComparable;
+						if (obj != null) {
+							if (obj.CompareTo(user) == 0) return(info);
+						} else {
+							if (info == user) return(info);
+						}
 					}
 				}
 			}

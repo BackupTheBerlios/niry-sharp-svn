@@ -114,15 +114,16 @@ namespace Niry.Graphics {
 			color = SetRed(color, r);
 			color = SetGreen(color, g);
 			color = SetBlue(color, b);
+			color = SetAlpha(color, 255);
 			return(color);
 		}
 
 		public static int SetColor (byte a, byte r, byte g, byte b) {
 			int color = 0x000000;
-			color = SetAlpha(color, a);
 			color = SetRed(color, r);
 			color = SetGreen(color, g);
 			color = SetBlue(color, b);
+			color = SetAlpha(color, a);
 			return(color);
 		}
 	}
