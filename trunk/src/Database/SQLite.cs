@@ -59,8 +59,7 @@ namespace Niry.Database {
 		/// Return True if Specified Table Exists
 		public bool TableExists (string table) {
 			string sql = "SELECT name FROM sqlite_master WHERE type='table' AND name=@Table;";
-			SqliteCommand sqlCmd = CreateCommand();
-			sqlCmd.CommandText = sql;
+			SqliteCommand sqlCmd = new SqliteCommand(sql, this);
 			sqlCmd.Parameters.Add("@Table", table);
 			SqliteDataReader sqlReader = sqlCmd.ExecuteReader();
 
@@ -74,15 +73,13 @@ namespace Niry.Database {
 
 		// Create SQL Command Without Param
 		public SqliteCommand CreateCommand (string sql) {
-			SqliteCommand sqlCmd = CreateCommand();
-			sqlCmd.CommandText = sql;
+			SqliteCommand sqlCmd = new SqliteCommand(sql, this);
 			return(sqlCmd);
 		}
 
 		// Create SQL Command With Param
 		public SqliteCommand CreateCommand (string sql, Hashtable sqlParams) {
-			SqliteCommand sqlCmd = CreateCommand();
-			sqlCmd.CommandText = sql;
+			SqliteCommand sqlCmd = new SqliteCommand(sql, this);
 			if (sqlParams != null) {
 				foreach (string key in sqlParams.Keys)
 					sqlCmd.Parameters.Add(key, sqlParams[key]);

@@ -35,6 +35,18 @@ namespace Niry.Utils {
 			}
 		}
 
+		public static string GenerateUniquePath (string dir, string name) {
+			string path;
+
+			Random rnd = new Random();
+			do {
+				int num = rnd.Next() + 1;
+				path = Path.Combine(dir, num.ToString("x") + '-' + name);
+			} while (File.Exists(path) == true);
+
+			return(path);
+		}
+
 		/// Creates a uniquely named, zero-byte temporary file on disk 
 		/// and returns the full path of that file.
 		public static string GetTempFileName (string directory) {

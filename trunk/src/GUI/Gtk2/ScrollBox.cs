@@ -106,6 +106,7 @@ namespace Niry.GUI.Gtk2 {
 		// ============================================
 		protected void OnExposed (object obj, ExposeEventArgs args) {
 			this.DrawText();
+			this.QueueDraw();
 		}
 
 		protected void OnRealized (object obj, EventArgs args) {
