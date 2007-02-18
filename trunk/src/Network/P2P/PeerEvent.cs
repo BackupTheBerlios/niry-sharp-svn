@@ -60,7 +60,8 @@ namespace Niry.Network {
 
 		public PeerEventArgs (PeerEvent type, StringBuilder data) {
 			this.eventType = type;
-			this.data = Encoding.UTF8.GetBytes(data.ToString());
+			this.message = data.ToString();
+			this.data = Encoding.UTF8.GetBytes(this.message);
 		}
 
 		// ============================================

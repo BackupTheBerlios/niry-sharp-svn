@@ -362,9 +362,11 @@ namespace Niry.Network {
 
 		/// Send Data To Non-Logged Peer
 		public static void SendToKnownPeers (byte[] data) {
-			foreach (object user in p2pManager.knownPeers.Keys) {
-				PeerSocket peer = (PeerSocket) p2pManager.knownPeers[user];
-				peer.Send(data);
+			lock (p2pManager.knownPeers) {
+				foreach (object user in p2pManager.knownPeers.Keys) {
+					PeerSocket peer = (PeerSocket) p2pManager.knownPeers[user];
+					peer.Send(data);
+				}
 			}
 		}
 		
@@ -375,8 +377,10 @@ namespace Niry.Network {
 
 		/// Send Data To All Non-Logged Peer		
 		public static void SendToUnknownPeers (byte[] data) {
-			foreach (PeerSocket peer in p2pManager.unknownPeers)
-				peer.Send(data);
+			lock (p2pManager.unknownPeers) {
+				foreach (PeerSocket peer in p2pManager.unknownPeers)
+					peer.Send(data);
+			}
 		}
 		#endregion
 		

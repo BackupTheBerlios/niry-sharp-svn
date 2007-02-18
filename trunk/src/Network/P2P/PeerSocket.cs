@@ -40,7 +40,7 @@ namespace Niry.Network {
 
 		// ============================================
 		// PUBLIC Events
-		// ============================================
+		// ============================================		
 		public event PeerEventHandler Disconnecting = null;
 		public event PeerEventHandler Connected = null;
 		public event PeerEventHandler Received = null;
@@ -62,25 +62,31 @@ namespace Niry.Network {
 		protected object info;
 
 		// ============================================
+		// PRIVATE Members
+		// ============================================
+		private ManualResetEvent sendResetEvent = null;
+
+		// ============================================
 		// PUBLIC Constructors
 		// ============================================
 		/// Create New Peer Socket
-		public PeerSocket() {
-			this.socket = new Socket(AddressFamily.InterNetwork, 
-									 SocketType.Stream, ProtocolType.Tcp);
+		public PeerSocket() : this (AddressFamily.InterNetwork, 
+									SocketType.Stream, ProtocolType.Tcp)
+		{
 		}
 
 		/// Create New Peer Socket from Socket
 		public PeerSocket (Socket sock) {
 			this.socket = sock;
+			sendResetEvent = new ManualResetEvent(false);
 		}
 
 		/// Create New Peer Socket
-		public PeerSocket (AddressFamily addrFamily, 
+		public PeerSocket  (AddressFamily addrFamily, 
 							SocketType sockType, 
-							ProtocolType protocolType)
+							ProtocolType protocolType) : 
+			this(new Socket(addrFamily, sockType, protocolType))
 		{
-			this.socket = new Socket(addrFamily, sockType, protocolType);
 		}
 
 		// ============================================
@@ -145,24 +151,29 @@ namespace Niry.Network {
 
 		/// Send Data 
 		public void Send (byte[] data) {
-			sendingData = data;
+			lock (this) {
+				this.sendResetEvent.Reset();
+				sendingData = data;
 
-			// Raise Sending Event
-			// ======================================================
-			if (Sending != null)
-				Sending(this, new PeerEventArgs(PeerEvent.Sending, data));
-			// ======================================================
+				// Raise Sending Event
+				// ======================================================
+				if (Sending != null)
+					Sending(this, new PeerEventArgs(PeerEvent.Sending, data));
+				// ======================================================
 
-			// Check Peer
-			if (this.socket == null || this.socket.Connected == false) {
-				RaiseErrorEvent("Send(): Peer Seems not Connected");
-				return;
+				// Check Peer
+				if (this.socket == null || this.socket.Connected == false) {
+					RaiseErrorEvent("Send(): Peer Seems not Connected");
+					return;
+				}
+
+				// Send
+				AsyncCallback sendCb = new AsyncCallback(AsyncSendCallBack);
+				this.socket.BeginSend(sendingData, 0, sendingData.Length, 
+										SocketFlags.None, sendCb, socket);
+
+				this.sendResetEvent.WaitOne();
 			}
-
-			// Send
-			AsyncCallback sendCb = new AsyncCallback(AsyncSendCallBack);
-			this.socket.BeginSend(sendingData, 0, sendingData.Length, 
-									SocketFlags.None, sendCb, socket);
 		}
 
 		/// Start Receive (Call This Only Once)
@@ -217,12 +228,13 @@ namespace Niry.Network {
 		}
 
 		private void AsyncSendCallBack (IAsyncResult asyncResult) {
+			this.sendResetEvent.Set();
 			try {
 				Socket sock;
-				lock (this.socket) {
+				//lock (this.socket) {
 					sock = (Socket) asyncResult.AsyncState;
 					sock.EndSend(asyncResult);
-				}
+				//}
 
 				// Raise Sended Event
 				// ======================================================
@@ -237,43 +249,45 @@ namespace Niry.Network {
 		}
 
 		private void AsyncRecvCallBack (IAsyncResult asyncResult) {
-			try {
-				StateObject state;
-				int byteSend;
-				Socket sock;
-				lock (this.socket) {
-					state = (StateObject) asyncResult.AsyncState;
-					sock = state.Sock;
-					byteSend = sock.EndReceive(asyncResult);
-				}
+			lock (this) {
+				try {
+					StateObject state;
+					int byteSend;
+					Socket sock;
+					//lock (this.socket) {
+						state = (StateObject) asyncResult.AsyncState;
+						sock = state.Sock;
+						byteSend = sock.EndReceive(asyncResult);
+					//}
 
-				if (byteSend > 0) {
-					response.Append(Encoding.UTF8.GetString(state.Buffer, 0, byteSend));
+					if (byteSend > 0) {
+						response.Append(Encoding.UTF8.GetString(state.Buffer, 0, byteSend));
 					
-					// Raise Received Event
-					// ======================================================
-					try {
-						if (Received != null)
-							Received(this, new PeerEventArgs(PeerEvent.Received, response));
-					} catch (Exception e) {
-						Debug.Log("[ !! ] PeerSocket.AsyncRecv Received Handler: {0}", e.Message);
+						// Raise Received Event
+						// ======================================================
+						try {
+							if (Received != null)
+								Received(this, new PeerEventArgs(PeerEvent.Received, response));
+						} catch (Exception e) {
+							Debug.Log("[ !! ] PeerSocket.AsyncRecv Received Handler: {0}", e.Message);
+						}
+						// ======================================================
+	
+						AsyncCallback recvCb = new AsyncCallback(AsyncRecvCallBack);
+						this.socket.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 
+												 SocketFlags.None, recvCb, state);
+					} else {
+						Disconnect();
 					}
-					// ======================================================
-
-					AsyncCallback recvCb = new AsyncCallback(AsyncRecvCallBack);
-					this.socket.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 
-											 SocketFlags.None, recvCb, state);
-				} else {
+				} catch (System.NullReferenceException) {
+					return;
+				} catch (System.ObjectDisposedException) {
+					return;
+				} catch (Exception e) {
+					RaiseErrorEvent("AsyncRecv(): " + e.Message);
 					Disconnect();
+				} finally {
 				}
-			} catch (System.NullReferenceException) {
-				return;
-			} catch (System.ObjectDisposedException) {
-				return;
-			} catch (Exception e) {
-				RaiseErrorEvent("AsyncRecv(): " + e.Message);
-				Disconnect();
-			} finally {
 			}
 		}
 
