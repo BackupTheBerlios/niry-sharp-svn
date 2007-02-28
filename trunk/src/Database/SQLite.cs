@@ -45,7 +45,7 @@ namespace Niry.Database {
 		// PUBLIC Constructors
 		// ============================================
 		/// Create New Sqlite Connection From File
-		public SQLite (string fileName) : base("URI=file:" + fileName +",version=3") {
+		public SQLite (string fileName) : base("URI=file:" + fileName +",Version=3") {
 		}
 
 		/// Destroy SQLite Connection

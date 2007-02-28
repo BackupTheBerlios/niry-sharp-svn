@@ -1,15 +1,11 @@
-//
-// AssemblyInfo.cs.in for project 'superstring-sharp'
-//
-// Authors:
-//	Everaldo Canuto (everaldo@simios.org)
-//
+// AssemblyInfo.cs.in 
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: AssemblyVersion("@VERSION@")]
-[assembly: AssemblyTitle ("superstring-sharp")]
-[assembly: AssemblyDescription ("superstring-sharp - Sample Mono Library")]
-[assembly: AssemblyCopyright ("Copyright (c) 2004 Novell, Inc.")]
-[assembly: AssemblyCompany ("Novell, Inc.")]
+[assembly: AssemblyTitle ("niry-sharp")]
+[assembly: AssemblyProduct("Niry Sharp")]
+[assembly: AssemblyDescription ("niry-sharp - C# Utils")]
+[assembly: AssemblyCopyright ("Copyright (C) Matteo Bertozzi 2005-2007")]
+[assembly: AssemblyCompany ("Matteo Bertozzi")]

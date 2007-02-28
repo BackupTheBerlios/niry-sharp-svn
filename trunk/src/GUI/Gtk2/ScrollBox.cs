@@ -78,7 +78,8 @@ namespace Niry.GUI.Gtk2 {
 			if (this.timeoutRet != false) {
 				this.QueueDrawArea (0, 0, this.WidthRequest - 10, 
 									this.HeightRequest - 10);
-			}
+				this.QueueDraw();
+			}			
 			return(this.timeoutRet);
 		}
 
@@ -106,7 +107,6 @@ namespace Niry.GUI.Gtk2 {
 		// ============================================
 		protected void OnExposed (object obj, ExposeEventArgs args) {
 			this.DrawText();
-			this.QueueDraw();
 		}
 
 		protected void OnRealized (object obj, EventArgs args) {

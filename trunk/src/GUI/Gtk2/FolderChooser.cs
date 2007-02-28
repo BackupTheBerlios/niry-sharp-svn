@@ -222,11 +222,27 @@ namespace Niry.GUI.Gtk2 {
 		}
 
 		private void SetSelected (FolderNode node) {
-			node.Name = "<b>" + node.Name + "</b> (Shared)";
+			if (node.Name.StartsWith("<b>") == false) {
+				node.Name = "<b>" + node.Name + "</b> (Shared)";
+			}
 		}
 
 		private void SetUnselected (FolderNode node) {
-			node.Name = node.Name.Substring(3, node.Name.Length - 16);
+			if (node.Name.StartsWith("<b>") == true) {
+				node.Name = node.Name.Substring(3, node.Name.Length - 16);
+			}
+		}
+
+		private void SetPaths (string[] paths) {
+			foreach (string path in paths) sharedPaths.Add(path);
+
+			foreach (FolderNode node in store) {
+				if (sharedPaths.Contains(node.Path) == true) {
+					SetSelected(node);
+				} else {
+					SetUnselected(node);
+				}
+			}
 		}
 
 		// ========================================
@@ -234,7 +250,7 @@ namespace Niry.GUI.Gtk2 {
 		// ========================================
 		public string[] SharedPaths {
 			get { return((string[]) sharedPaths.ToArray(typeof(string))); }
-			set { foreach (string path in value) sharedPaths.Add(path); }
+			set { SetPaths(value); }
 		}
 
 		public NodeStore Store {
