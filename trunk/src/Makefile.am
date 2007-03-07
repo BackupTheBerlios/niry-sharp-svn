@@ -6,10 +6,11 @@ DISTCLEANFILES = Info.cs AssemblyInfo.cs Makefile.in
 
 SRC_BASE = 		Delegates.cs
 
-SRC_GUI_GTK_28 = 	GUI/Gtk2/CellRendererBitArray.cs	\
+SRC_GUI_GTK_28 = 	GUI/Gtk2/BandwidthGraph.cs			\
+					GUI/Gtk2/CellRendererBitArray.cs	\
 					GUI/Gtk2/Dispatch.cs				\
 					GUI/Gtk2/ExtCheckMenuItem.cs		\
-					GUI/Gtk2/ExtMenuItem.cs			\
+					GUI/Gtk2/ExtMenuItem.cs				\
 					GUI/Gtk2/FolderChooser.cs			\
 					GUI/Gtk2/ImageCombo.cs				\
 					GUI/Gtk2/ImageUtils.cs				\
@@ -33,6 +34,7 @@ SRC_GRAPHICS = 		Graphics/ColorUtils.cs		\
 					Graphics/Steganography.cs
 
 SRC_NETWORK =	Network/FtpClient.cs		\
+				Network/NetMonitor.cs		\
 				Network/P2P/P2PManager.cs	\
 				Network/P2P/PeerEvent.cs	\
 				Network/P2P/PeerSocket.cs	\
